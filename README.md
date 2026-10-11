@@ -1,5 +1,5 @@
 #twistedsymphony's ROM Tool
-# 2020-01-11 twistedsymphony solid-orange.com
+# 2026-10-11 twistedsymphony solid-orange.com
 
 This tool allows you to separate, combine and modify ROM files from a command line in a number of ways
 It requires Python 3.x to be installed.
@@ -73,3 +73,35 @@ Here are the Available Commands:
 
  -deinterleave [input file] [output file A] [output file B]
  
+ 
+#CREATE an IPS patch from a source file and a modified target file:
+
+ -ipscreate [source file] [target file] [output .ips file]
+ 
+ 
+#APPLY an IPS patch to a source file:
+
+ -ipsapply [.ips file] [source file] [output file]
+ 
+IPS notes: patches use RLE records where they save space, and if the target is smaller
+than the source the patch includes the common 3-byte truncation extension after "EOF".
+IPS can only address files up to 16MB. Argument order matches flips (-c / -a).
+
+
+#USING AS A MODULE
+
+ts_rom_tool.py can be imported into another Python script; importing it does not print
+anything or run a command. Every operation is available as a function, for example:
+
+ import ts_rom_tool
+ ts_rom_tool.ips_create('original.bin', 'modified.bin', 'patch.ips')
+ ts_rom_tool.ips_apply('patch.ips', 'original.bin', 'patched.bin')
+
+ # or work on bytes in memory
+ patch = ts_rom_tool.make_ips(original_bytes, modified_bytes)
+ patched = ts_rom_tool.apply_ips_patch(patch, original_bytes)
+
+ # run any command-line operation from code
+ ts_rom_tool.main(['ts_rom_tool.py', '-wordswap', 'in.bin', 'out.bin'])
+
+Invalid sizes raise ValueError and bad IPS files raise ts_rom_tool.IPSError.
