@@ -323,7 +323,7 @@ def make_ips(source_data, target_data):
 
 
 #applies IPS patch data (bytes) to source_data and returns the patched bytes
-def apply_ips_patch(source_data, patch_data):
+def apply_ips_patch(patch_data, source_data):
   data = bytearray(source_data)
   patch = bytes(patch_data)
   if patch[:5] != IPS_HEADER:
@@ -376,12 +376,12 @@ def ips_create(source_file, target_file, output_file):
 
 
 #applies an IPS patch file to a source file and writes the patched file
-def ips_apply(source_file, ips_file, output_file):
+def ips_apply(ips_file, source_file, output_file):
   with open(source_file, 'rb') as f:
     src = f.read()
   with open(ips_file, 'rb') as f:
     patch = f.read()
-  result = apply_ips_patch(src, patch)
+  result = apply_ips_patch(patch, src)
   with open(output_file, 'wb') as outfile:
     outfile.write(result)
   return result
@@ -441,7 +441,7 @@ def print_help():
   print (" -ipscreate [source file] [target file] [output .ips file]")
   print (" ")
   print ("#APPLY an IPS patch to a source file:")
-  print (" -ipsapply [source file] [.ips file] [output file]")
+  print (" -ipsapply [.ips file] [source file] [output file]")
   print (" ")
 
 

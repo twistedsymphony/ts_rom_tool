@@ -81,11 +81,11 @@ Here are the Available Commands:
  
 #APPLY an IPS patch to a source file:
 
- -ipsapply [source file] [.ips file] [output file]
+ -ipsapply [.ips file] [source file] [output file]
  
 IPS notes: patches use RLE records where they save space, and if the target is smaller
 than the source the patch includes the common 3-byte truncation extension after "EOF".
-IPS can only address files up to 16MB.
+IPS can only address files up to 16MB. Argument order matches flips (-c / -a).
 
 
 #USING AS A MODULE
@@ -95,11 +95,11 @@ anything or run a command. Every operation is available as a function, for examp
 
  import ts_rom_tool
  ts_rom_tool.ips_create('original.bin', 'modified.bin', 'patch.ips')
- ts_rom_tool.ips_apply('original.bin', 'patch.ips', 'patched.bin')
+ ts_rom_tool.ips_apply('patch.ips', 'original.bin', 'patched.bin')
 
  # or work on bytes in memory
  patch = ts_rom_tool.make_ips(original_bytes, modified_bytes)
- patched = ts_rom_tool.apply_ips_patch(original_bytes, patch)
+ patched = ts_rom_tool.apply_ips_patch(patch, original_bytes)
 
  # run any command-line operation from code
  ts_rom_tool.main(['ts_rom_tool.py', '-wordswap', 'in.bin', 'out.bin'])
