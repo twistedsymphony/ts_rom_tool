@@ -1,5 +1,5 @@
 #twistedsymphony's ROM Tool
-# 2020-01-11 twistedsymphony solid-orange.com
+# 2026-10-11 twistedsymphony solid-orange.com
 
 This tool allows you to separate, combine and modify ROM files from a command line in a number of ways
 It requires Python 3.x to be installed.

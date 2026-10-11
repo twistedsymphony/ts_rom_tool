@@ -1,4 +1,4 @@
-# 2020-01-11 twistedsymphony solid-orange.com
+# 2026-10-11 twistedsymphony solid-orange.com
 import os
 import sys
 
@@ -24,8 +24,8 @@ def get_file_size(file_name):
 #checks that all of the arguments have been provided
 def check_input_count(argv, count):
   if len(argv) <= count:
-    print("too few arguments to perform operation")
-    sys.exit(1)
+    raise ValueError("too few arguments for %s: expected %d, got %d"
+                     % (argv[1], count - 1, len(argv) - 2))
   
   
 #combines two or more files into one
